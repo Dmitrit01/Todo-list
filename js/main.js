@@ -97,11 +97,15 @@ crossCard.insertAdjacentElement('beforeend',cross)
 //Создаем элемент buttonDate
 const buttonDate = document.createElement('button')
 buttonDate.classList.add('component__date')
-const time = new Date()
-const minutes = time.getMinutes()<10?'0'+time.getMinutes():time.getMinutes()
-const seconds = time.getSeconds()<10?'0'+time.getSeconds():time.getSeconds()
-const hours = time.getUTCHours()<10?'0'+time.getUTCHours():time.getUTCHours()
-buttonDate.innerHTML = `${hours}.${minutes}.${seconds}`
+
+setInterval(() => {
+    const time = new Date()
+    const minutes = time.getMinutes()<10?'0'+time.getMinutes():time.getMinutes()
+    const seconds = time.getSeconds()<10?'0'+time.getSeconds():time.getSeconds()
+    const hours = time.getUTCHours()<10?'0'+time.getUTCHours():time.getUTCHours()
+    buttonDate.innerHTML = `${hours}.${minutes}.${seconds} ` 
+    },1000)
+
 component.insertAdjacentElement('beforeend',buttonDate)
 }
 let countComponents = 2 //Количество компонентов
