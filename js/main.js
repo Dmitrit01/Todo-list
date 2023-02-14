@@ -21,6 +21,7 @@ const add = document.createElement('button')
 add.textContent = 'Add'
 add.classList.add('todo__add')
 todoTop.insertAdjacentElement('afterbegin',add)
+add.addEventListener('click',createComponent)
 //Cоздаем элемент форму
 const form = document.createElement('form')
 form.classList.add('todo__form')
@@ -29,25 +30,34 @@ todoTop.insertAdjacentElement('afterbegin',form)
 //Создаем элемент input
 const inputEnter = document.createElement('input')
 inputEnter.classList.add('todo__enter')
-inputEnter.setAttribute('placeholder','enter todo...')
+ inputEnter.setAttribute('placeholder','enter todo...')
 form.insertAdjacentElement('afterbegin',inputEnter)
 //Cоздаем элемент button - delete All
 const dellAll = document.createElement('button')
 dellAll.textContent = 'Delete ALL'
 dellAll.classList.add('todo__del-all')
 todoTop.insertAdjacentElement('afterbegin',dellAll)
+//При нажатии на кнопку delete all удаляются все компоненты-------------------------
+function deleteAllComponents(){
+    const array = list.children
+    console.log(array);
+    for(let i=0;i<array.length;i){
+        array[i].remove()
+    }
+}
+dellAll.addEventListener('click',deleteAllComponents)
 //Закончили добавление элементов в todoTop=======================================
 //Cоздаем элемент list
 const list = document.createElement('ul')
 list.classList.add('list')
 body.insertAdjacentElement('beforeend',list)
-//Создаем элемент компонент
-const component = document.createElement('li')
-component.classList.add('component')
-list.insertAdjacentElement('afterbegin',component)
+//Создаем элементы и его компоненты через функцию
+    function createComponent(){
+        const component = document.createElement('li')
+        component.classList.add('component')
+        list.insertAdjacentElement('afterbegin',component)
 //Cоздаем элементы и будем вставлять их в компонент===============================
-
-//Создаем элемент сheck-------------------------------
+//Создаем элемент сheck------------------------------------------
 const checkCard = document.createElement('div')
 checkCard.classList.add('component__check')
 component.insertAdjacentElement('beforeend',checkCard)
@@ -55,39 +65,51 @@ component.insertAdjacentElement('beforeend',checkCard)
 const check = document.createElement('img')
 check.setAttribute('src','img/check.png')
 checkCard.insertAdjacentElement('beforeend',check)
-//-----------------------------------------------------
-//Создаем элемент form-component-----------------------
+checkCard.addEventListener('click',function(){
+    check.classList.toggle('hide')
+    component.classList.toggle('component_active')
+    formComponent.classList.toggle('component__form_active')
+})
+//-----------------------------------------------------------------
+//Создаем элемент form-component----------------------------------
 const formComponent = document.createElement('form')
 formComponent.classList.add('component__form')
 formComponent.setAttribute('action','#')
 component.insertAdjacentElement('beforeend',formComponent)
 //Создаем элемент input
 const inputText = document.createElement('input')
-inputText.setAttribute('placeholder','Todo text')
+inputText.setAttribute('placeholder',`${inputEnter.value}`||'Todo text')
 formComponent.insertAdjacentElement('afterbegin',inputText)
 //---------------------------------------------------------
-
 //Создаем элемент close-------------------------------------
 const crossCard = document.createElement('div')
 crossCard.classList.add('component__close')
 component.insertAdjacentElement('beforeend',crossCard)
+function deleteComponent(event){
+    event.target.closest('.component').remove()
+}
+crossCard.addEventListener('click',deleteComponent)
 //Cоздаем элемент image-close
 const cross = document.createElement('img')
 cross.setAttribute('src','img/close.png')
 crossCard.insertAdjacentElement('beforeend',cross)
-
 //----------------------------------------------------------
 //Создаем элемент buttonDate
 const buttonDate = document.createElement('button')
 buttonDate.classList.add('component__date')
-buttonDate.textContent = 'Date'
+const time = new Date()
+const minutes = time.getMinutes()<10?'0'+time.getMinutes():time.getMinutes()
+const seconds = time.getSeconds()<10?'0'+time.getSeconds():time.getSeconds()
+const hours = time.getUTCHours()<10?'0'+time.getUTCHours():time.getUTCHours()
+buttonDate.innerHTML = `${hours}.${minutes}.${seconds}`
 component.insertAdjacentElement('beforeend',buttonDate)
-
-// Создаем копию component и вставляем в list
-const component2 = component.cloneNode(true)
-list.insertAdjacentElement('afterbegin',component2)
-
+}
+let countComponents = 2 //Количество компонентов
+for(let i =1;i<=countComponents;i++){
+    createComponent()
+}
 //Каркас todo======================================================================================
+
 /* <section class="todo">
     <div class="container">
         <div class="todo__body">
@@ -127,7 +149,3 @@ list.insertAdjacentElement('afterbegin',component2)
         </div>
     </div>
 </section>  */
-
-
-
-
