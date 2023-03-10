@@ -53,6 +53,7 @@ list.classList.add('list')
 body.insertAdjacentElement('beforeend',list)
 //Создаем элементы и его компоненты через функцию
     function createComponent(){
+        inputEnter.value = ''
         const component = document.createElement('li')
         component.classList.add('component')
         list.insertAdjacentElement('afterbegin',component)
@@ -107,6 +108,7 @@ setInterval(() => {
     },1000)
 
 component.insertAdjacentElement('beforeend',buttonDate)
+    
 }
 let countComponents = 2 //Количество компонентов
 for(let i =1;i<=countComponents;i++){
