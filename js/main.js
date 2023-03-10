@@ -64,12 +64,14 @@ checkCard.classList.add('component__check')
 component.insertAdjacentElement('beforeend',checkCard)
 //Cоздаем элемент image-check
 const check = document.createElement('img')
-check.setAttribute('src','img/check.png')
-checkCard.insertAdjacentElement('beforeend',check)
+check.setAttribute('src','img/check.png')//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+check.classList.add('hide')
+checkCard.insertAdjacentElement('beforeend',check)//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 checkCard.addEventListener('click',function(){
     check.classList.toggle('hide')
     component.classList.toggle('component_active')
     formComponent.classList.toggle('component__form_active')
+    
 })
 //-----------------------------------------------------------------
 //Создаем элемент form-component----------------------------------
